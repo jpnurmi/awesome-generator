@@ -5,7 +5,7 @@ import 'package:pub_api_client/pub_api_client.dart';
 import 'package:yaml/yaml.dart';
 import 'package:github/github.dart';
 
-import '../../generator.dart';
+import '../../awesome_generator.dart';
 import 'modifiers/projects_modifier.dart';
 import 'modifiers/packages_modifier.dart';
 
@@ -32,26 +32,24 @@ class LocalDb {
   PackagesModifier? _packagesModifier;
 
   PubClient? get pubClient {
-    if (_pubClient == null) _pubClient = PubClient();
+    _pubClient ??= PubClient();
     return _pubClient;
   }
 
   GitHub? get githubClient {
-    if (_githubClient == null) {
-      _githubClient = GitHub(
-        auth: Authentication.withToken(githubToken),
-      );
-    }
+    _githubClient ??= GitHub(
+      auth: Authentication.withToken(githubToken),
+    );
     return _githubClient;
   }
 
   Future<List<Project>> _readProjectList(YamlList items) async {
-    List<Project> projectList = [];
+    var projectList = <Project>[];
     for (var item in items) {
-      Project project = Project.fromJson(Map<String, dynamic>.from(item));
+      var project = Project.fromJson(Map<String, dynamic>.from(item));
 
       if (project.description == null) {
-        String cacheKey = 'github#${project.repo}';
+        var cacheKey = 'github#${project.repo}';
         Repository repository;
         if (_cacheMap!.containsKey(cacheKey)) {
           repository = Repository.fromJson(_cacheMap![cacheKey]);
@@ -70,12 +68,12 @@ class LocalDb {
   }
 
   Future<List<Package>> _readPackageList(YamlList items) async {
-    List<Package> packageList = [];
+    var packageList = <Package>[];
     for (var item in items) {
-      Package package = Package.fromJson(Map<String, dynamic>.from(item));
+      var package = Package.fromJson(Map<String, dynamic>.from(item));
 
       if (package.description == null) {
-        String cacheKey = 'pub#${package.name}';
+        var cacheKey = 'pub#${package.name}';
 
         PubPackage pubPackage;
         if (_cacheMap!.containsKey(cacheKey)) {
@@ -97,31 +95,31 @@ class LocalDb {
   }
 
   Future<DbData?> read(String path) async {
-    this.dbData = defaultDbData;
+    dbData = defaultDbData;
 
-    File _cacheFile = File('.cache.json');
+    var _cacheFile = File('.cache.json');
     if (_cacheFile.existsSync()) {
-      String cacheJsonString = await _cacheFile.readAsString();
+      var cacheJsonString = await _cacheFile.readAsString();
       _cacheMap = json.decode(cacheJsonString);
     }
 
     List<Project> projectList;
     List<Package> packageList;
 
-    File file = File(path);
-    String content = file.readAsStringSync();
+    var file = File(path);
+    var content = file.readAsStringSync();
     YamlMap doc = loadYaml(content);
 
     projectList = await _readProjectList(doc['projects'] as YamlList);
     packageList = await _readPackageList(doc['packages'] as YamlList);
 
-    this.dbData!.projectList = []..addAll(projectList);
-    this.dbData!.packageList = packageList;
+    dbData!.projectList = [...projectList];
+    dbData!.packageList = packageList;
 
-    final String cacheJsonString = prettyJsonString(_cacheMap);
+    final cacheJsonString = prettyJsonString(_cacheMap);
     _cacheFile.writeAsStringSync(cacheJsonString);
 
-    return this.dbData;
+    return dbData;
   }
 
   ProjectsModifier? get projects {
@@ -129,9 +127,7 @@ class LocalDb {
   }
 
   ProjectsModifier? project(String? name) {
-    if (_projectsModifier == null) {
-      _projectsModifier = ProjectsModifier(this.dbData);
-    }
+    _projectsModifier ??= ProjectsModifier(dbData);
     _projectsModifier!.setName(name);
     return _projectsModifier;
   }
@@ -141,9 +137,7 @@ class LocalDb {
   }
 
   PackagesModifier? package(String? name) {
-    if (_packagesModifier == null) {
-      _packagesModifier = PackagesModifier(this.dbData);
-    }
+    _packagesModifier ??= PackagesModifier(dbData);
     _packagesModifier!.setName(name);
     return _packagesModifier;
   }
@@ -159,8 +153,8 @@ class DbData {
   });
 
   factory DbData.fromJson(Map<String, dynamic> json) {
-    List<Project> projectList = [];
-    List<Package> packageList = [];
+    var projectList = <Project>[];
+    var packageList = <Package>[];
 
     if (json['projectList'] != null) {
       Iterable l = json['projectList'] as List;

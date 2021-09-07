@@ -39,18 +39,18 @@ Future<void> main(List<String> args) async {
 
   final localDb = await initLocalDb(options['input'], token);
 
-  File file = File(options['output']);
-  String content = file.readAsStringSync();
+  var file = File(options['output']);
+  var content = file.readAsStringSync();
 
-  List<Project> projectList = localDb.projects!.list()!;
-  List<Package> packageList = localDb.packages!.list()!;
+  final projectList = localDb.projects!.list()!;
+  final packageList = localDb.packages!.list()!;
 
   projectList
       .sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
   packageList
       .sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
 
-  String md = '''
+  var md = '''
 ## Packages
 
 ${packageList.map((e) => e.md).join('\n')}
@@ -61,10 +61,10 @@ ${projectList.map((e) => e.md).join('\n')}
 
 ''';
 
-  int markIndexS = content.indexOf(_kAutoGenMark) + _kAutoGenMark.length;
-  int markIndexE = content.lastIndexOf(_kAutoGenMark);
+  var markIndexS = content.indexOf(_kAutoGenMark) + _kAutoGenMark.length;
+  var markIndexE = content.lastIndexOf(_kAutoGenMark);
 
-  String newContent = '';
+  var newContent = '';
   newContent += content.substring(0, markIndexS);
   newContent += '\n$md\n';
   newContent += content.substring(markIndexE);

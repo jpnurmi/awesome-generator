@@ -25,7 +25,7 @@ class PackagesModifier {
   }
 
   List<Package>? list({
-    bool where(Package element)?,
+    bool Function(Package element)? where,
   }) {
     if (where != null) {
       return _packageList!.where(where).toList();

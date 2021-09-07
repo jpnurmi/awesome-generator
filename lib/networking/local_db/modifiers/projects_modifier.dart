@@ -22,7 +22,7 @@ class ProjectsModifier {
   }
 
   List<Project>? list({
-    bool where(Project element)?,
+    bool Function(Project element)? where,
   }) {
     if (where != null) {
       return _projectList!.where(where).toList();

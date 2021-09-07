@@ -6,10 +6,10 @@ class Package {
   String get url => 'https://pub.dev/packages/$pub';
   String get githubUrl => 'https://github.com/$repo';
   String get githubBadgeStars =>
-      'https://img.shields.io/github/stars/${repo}?style=social';
+      'https://img.shields.io/github/stars/$repo?style=social';
 
   String get md {
-    String linkedName = '[$name]($url)';
+    var linkedName = '[$name]($url)';
     return '- $linkedName - ${description!.replaceAll('\n', ' ')}';
   }
 

@@ -5,10 +5,10 @@ class Project {
   String? url;
   String get githubUrl => 'https://github.com/$repo';
   String get githubBadgeStars =>
-      'https://img.shields.io/github/stars/${repo}?style=social';
+      'https://img.shields.io/github/stars/$repo?style=social';
 
   String get md {
-    String linkedName = '[${name}](${url ?? githubUrl})';
+    var linkedName = '[$name](${url ?? githubUrl})';
     return '- $linkedName - ${description!.replaceAll('\n', ' ')}';
   }
 
