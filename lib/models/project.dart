@@ -31,9 +31,9 @@ class Project {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'description': description,
+      'description': description!.replaceAll('\n', ' '),
       'repo': repo,
-      'url': url,
+      'url': url ?? githubUrl,
     };
   }
 }

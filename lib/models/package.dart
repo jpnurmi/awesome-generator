@@ -35,6 +35,7 @@ class Package {
       'pub': pub,
       'description': description,
       'repo': repo,
+      'url': url,
     };
   }
 }
