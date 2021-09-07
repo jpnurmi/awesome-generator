@@ -1,4 +1,4 @@
-import '../../../generator.dart';
+import '../../../awesome_generator.dart';
 
 import '../local_db.dart';
 
