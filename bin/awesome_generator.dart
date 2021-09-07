@@ -41,8 +41,8 @@ Future<void> main(List<String> args) async {
   }
 
   final localDb = await initLocalDb(options['input'], options['token']);
-  final projectList = localDb.projects!.list()!;
-  final packageList = localDb.packages!.list()!;
+  final projectList = localDb.projects!;
+  final packageList = localDb.packages!;
 
   projectList
       .sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));

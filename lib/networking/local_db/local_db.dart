@@ -6,11 +6,6 @@ import 'package:yaml/yaml.dart';
 import 'package:github/github.dart';
 
 import '../../awesome_generator.dart';
-import 'modifiers/projects_modifier.dart';
-import 'modifiers/packages_modifier.dart';
-
-export 'modifiers/projects_modifier.dart';
-export 'modifiers/packages_modifier.dart';
 
 class LocalDb {
   final DbData? defaultDbData;
@@ -27,9 +22,6 @@ class LocalDb {
 
   PubClient? _pubClient;
   GitHub? _githubClient;
-
-  ProjectsModifier? _projectsModifier;
-  PackagesModifier? _packagesModifier;
 
   PubClient? get pubClient {
     _pubClient ??= PubClient();
@@ -122,25 +114,8 @@ class LocalDb {
     return dbData;
   }
 
-  ProjectsModifier? get projects {
-    return project(null);
-  }
-
-  ProjectsModifier? project(String? name) {
-    _projectsModifier ??= ProjectsModifier(dbData);
-    _projectsModifier!.setName(name);
-    return _projectsModifier;
-  }
-
-  PackagesModifier? get packages {
-    return package(null);
-  }
-
-  PackagesModifier? package(String? name) {
-    _packagesModifier ??= PackagesModifier(dbData);
-    _packagesModifier!.setName(name);
-    return _packagesModifier;
-  }
+  List<Project>? get projects => dbData!.projectList;
+  List<Package>? get packages => dbData!.packageList;
 }
 
 class DbData {
