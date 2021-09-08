@@ -34,11 +34,6 @@ Future<void> main(List<String> args) async {
   );
 
   final options = parser.parse(args);
-  if (options['token'].isEmpty) {
-    print(
-        'You must provide a GitHub token either using the --token command-line argument or GITHUB_TOKEN environment variable.');
-    exit(1);
-  }
 
   final localDb = await initLocalDb(options['input'], options['token']);
   final projectList = localDb.projects!;
