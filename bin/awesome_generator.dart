@@ -23,8 +23,7 @@ Future<void> main(List<String> args) async {
     'output',
     abbr: 'o',
     valueHelp: 'path',
-    defaultsTo: 'README.md',
-    help: 'The output path',
+    help: 'The output path (defaults to stdout)',
   );
   parser.addOption(
     'template',
@@ -50,8 +49,13 @@ Future<void> main(List<String> args) async {
 
   final content = File(options['template']).readAsStringSync();
   final template = Template.parse(context, Source.fromString(content));
-  print(await template.render(context));
 
-  final output = File(options['output']);
-  output.writeAsStringSync(await template.render(context));
+  output(options['output']).write(await template.render(context));
+}
+
+IOSink output(String? output) {
+  if (output == null) {
+    return stdout;
+  }
+  return File(output).openWrite(mode: FileMode.writeOnly);
 }
