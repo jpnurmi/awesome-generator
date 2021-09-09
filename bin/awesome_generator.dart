@@ -12,13 +12,6 @@ Future<void> main(List<String> args) async {
     help: 'GitHub token (defaults to the GITHUB_TOKEN environment variable)',
   );
   parser.addOption(
-    'input',
-    abbr: 'i',
-    valueHelp: 'path',
-    defaultsTo: 'awesome.yaml',
-    help: 'Path to awesome.yaml.',
-  );
-  parser.addOption(
     'output',
     abbr: 'o',
     valueHelp: 'path',
@@ -34,7 +27,9 @@ Future<void> main(List<String> args) async {
   final options = parser.parse(args);
 
   final client = AwesomeClient(token: options['token']);
-  await client.load(options['input']);
+  for (final file in options.rest) {
+    await client.load(file);
+  }
   client.close();
 
   final generator = AwesomeGenerator(
