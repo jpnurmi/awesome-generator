@@ -6,6 +6,7 @@ part 'entry.g.dart';
 @freezed
 class AwesomeEntry with _$AwesomeEntry {
   const factory AwesomeEntry({
+    required String category,
     required String name,
     String? url,
     String? description,

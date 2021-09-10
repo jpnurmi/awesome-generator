@@ -7,18 +7,15 @@ import 'entry.dart';
 class AwesomeGenerator {
   AwesomeGenerator({
     required this.template,
-    required this.packages,
-    required this.projects,
+    required this.entries,
   });
 
   final String template;
-  final List<AwesomeEntry> packages;
-  final List<AwesomeEntry> projects;
+  final List<AwesomeEntry> entries;
 
   Future<void> generate(String? path) async {
     final context = Context.create();
-    context.variables['packages'] = packages.map((p) => p.toJson());
-    context.variables['projects'] = projects.map((p) => p.toJson());
+    context.variables['entries'] = entries.map((p) => p.toJson());
 
     final content = File(template).readAsStringSync();
     final parsed = Template.parse(context, Source.fromString(content));

@@ -13,21 +13,23 @@ class AwesomeClient {
   final GitHub _github;
   final PubClient _pub = PubClient();
 
-  final packages = <AwesomeEntry>[];
-  final projects = <AwesomeEntry>[];
-
-  Future<void> load(String path) async {
+  Future<List<AwesomeEntry>> load(String path) async {
     final yaml = loadYaml(File(path).readAsStringSync()) as YamlMap;
-    packages.addAll(await _readEntries(yaml['packages']));
-    projects.addAll(await _readEntries(yaml['projects']));
+    final entries = <AwesomeEntry>[];
+    for (final category in yaml.keys) {
+      entries.addAll(await _readEntries(category, yaml[category]));
+    }
+    return entries;
   }
 
   void close() => _github.dispose();
 
-  Future<List<AwesomeEntry>> _readEntries(YamlList items) async {
+  Future<List<AwesomeEntry>> _readEntries(
+      String category, YamlList items) async {
     final entries = <AwesomeEntry>[];
     for (final item in items) {
       entries.add(AwesomeEntry(
+        category: category,
         name: item['name'],
         url: item['url'],
         description: item['description'],

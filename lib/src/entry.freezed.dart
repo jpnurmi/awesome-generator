@@ -22,12 +22,14 @@ class _$AwesomeEntryTearOff {
   const _$AwesomeEntryTearOff();
 
   _AwesomeEntry call(
-      {required String name,
+      {required String category,
+      required String name,
       String? url,
       String? description,
       Map<String, dynamic>? pub,
       Map<String, dynamic>? github}) {
     return _AwesomeEntry(
+      category: category,
       name: name,
       url: url,
       description: description,
@@ -46,6 +48,7 @@ const $AwesomeEntry = _$AwesomeEntryTearOff();
 
 /// @nodoc
 mixin _$AwesomeEntry {
+  String get category => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -64,7 +67,8 @@ abstract class $AwesomeEntryCopyWith<$Res> {
           AwesomeEntry value, $Res Function(AwesomeEntry) then) =
       _$AwesomeEntryCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {String category,
+      String name,
       String? url,
       String? description,
       Map<String, dynamic>? pub,
@@ -81,6 +85,7 @@ class _$AwesomeEntryCopyWithImpl<$Res> implements $AwesomeEntryCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? category = freezed,
     Object? name = freezed,
     Object? url = freezed,
     Object? description = freezed,
@@ -88,6 +93,10 @@ class _$AwesomeEntryCopyWithImpl<$Res> implements $AwesomeEntryCopyWith<$Res> {
     Object? github = freezed,
   }) {
     return _then(_value.copyWith(
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -120,7 +129,8 @@ abstract class _$AwesomeEntryCopyWith<$Res>
       __$AwesomeEntryCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {String category,
+      String name,
       String? url,
       String? description,
       Map<String, dynamic>? pub,
@@ -139,6 +149,7 @@ class __$AwesomeEntryCopyWithImpl<$Res> extends _$AwesomeEntryCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? category = freezed,
     Object? name = freezed,
     Object? url = freezed,
     Object? description = freezed,
@@ -146,6 +157,10 @@ class __$AwesomeEntryCopyWithImpl<$Res> extends _$AwesomeEntryCopyWithImpl<$Res>
     Object? github = freezed,
   }) {
     return _then(_AwesomeEntry(
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -174,11 +189,18 @@ class __$AwesomeEntryCopyWithImpl<$Res> extends _$AwesomeEntryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AwesomeEntry implements _AwesomeEntry {
   const _$_AwesomeEntry(
-      {required this.name, this.url, this.description, this.pub, this.github});
+      {required this.category,
+      required this.name,
+      this.url,
+      this.description,
+      this.pub,
+      this.github});
 
   factory _$_AwesomeEntry.fromJson(Map<String, dynamic> json) =>
       _$$_AwesomeEntryFromJson(json);
 
+  @override
+  final String category;
   @override
   final String name;
   @override
@@ -192,13 +214,16 @@ class _$_AwesomeEntry implements _AwesomeEntry {
 
   @override
   String toString() {
-    return 'AwesomeEntry(name: $name, url: $url, description: $description, pub: $pub, github: $github)';
+    return 'AwesomeEntry(category: $category, name: $name, url: $url, description: $description, pub: $pub, github: $github)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _AwesomeEntry &&
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.url, url) ||
@@ -215,6 +240,7 @@ class _$_AwesomeEntry implements _AwesomeEntry {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(description) ^
@@ -234,7 +260,8 @@ class _$_AwesomeEntry implements _AwesomeEntry {
 
 abstract class _AwesomeEntry implements AwesomeEntry {
   const factory _AwesomeEntry(
-      {required String name,
+      {required String category,
+      required String name,
       String? url,
       String? description,
       Map<String, dynamic>? pub,
@@ -243,6 +270,8 @@ abstract class _AwesomeEntry implements AwesomeEntry {
   factory _AwesomeEntry.fromJson(Map<String, dynamic> json) =
       _$_AwesomeEntry.fromJson;
 
+  @override
+  String get category => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
   @override

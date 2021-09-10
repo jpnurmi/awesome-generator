@@ -27,15 +27,15 @@ Future<void> main(List<String> args) async {
   final options = parser.parse(args);
 
   final client = AwesomeClient(token: options['token']);
+  final entries = <AwesomeEntry>[];
   for (final file in options.rest) {
-    await client.load(file);
+    entries.addAll(await client.load(file));
   }
   client.close();
 
   final generator = AwesomeGenerator(
     template: options['template'],
-    packages: client.packages,
-    projects: client.projects,
+    entries: entries,
   );
   await generator.generate(options['output']);
 }

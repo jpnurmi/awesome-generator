@@ -8,6 +8,7 @@ part of 'entry.dart';
 
 _$_AwesomeEntry _$$_AwesomeEntryFromJson(Map<String, dynamic> json) =>
     _$_AwesomeEntry(
+      category: json['category'] as String,
       name: json['name'] as String,
       url: json['url'] as String?,
       description: json['description'] as String?,
@@ -17,6 +18,7 @@ _$_AwesomeEntry _$$_AwesomeEntryFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_AwesomeEntryToJson(_$_AwesomeEntry instance) =>
     <String, dynamic>{
+      'category': instance.category,
       'name': instance.name,
       'url': instance.url,
       'description': instance.description,
