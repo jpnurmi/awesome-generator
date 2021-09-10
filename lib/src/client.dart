@@ -4,14 +4,15 @@ import 'package:pub_api_client/pub_api_client.dart';
 import 'package:yaml/yaml.dart';
 import 'package:github/github.dart';
 
+import 'cache.dart';
 import 'entry.dart';
 
 class AwesomeClient {
-  AwesomeClient({String? token})
-      : _github = GitHub(auth: Authentication.withToken(token));
+  AwesomeClient({required this.github, required this.pub, this.cache});
 
-  final GitHub _github;
-  final PubClient _pub = PubClient();
+  final GitHub github;
+  final PubClient pub;
+  final AwesomeCache? cache;
 
   Future<List<AwesomeEntry>> load(String path) async {
     final yaml = loadYaml(File(path).readAsStringSync()) as YamlMap;
@@ -22,8 +23,6 @@ class AwesomeClient {
     return entries;
   }
 
-  void close() => _github.dispose();
-
   Future<List<AwesomeEntry>> _readEntries(
       String category, YamlList items) async {
     final entries = <AwesomeEntry>[];
@@ -33,8 +32,8 @@ class AwesomeClient {
         name: item['name'],
         url: item['url'],
         description: item['description'],
-        pub: await _readPub(item['pub']),
-        github: await _readGitHub(item['github']),
+        pub: await _readPubPackage(item['pub']),
+        github: await _readGitHubRepo(item['github']),
       ));
     }
     entries.sort((a, b) {
@@ -43,15 +42,35 @@ class AwesomeClient {
     return entries;
   }
 
-  Future<Map<String, dynamic>?> _readGitHub(String? repo) async {
+  Future<Map<String, dynamic>?> _readGitHubRepo(String? repo) async {
     if (repo == null) return null;
-    return _github.repositories
-        .getRepository(RepositorySlug.full(repo))
-        .then((r) => r.toJson());
+    return _readCache(
+      'github_${repo.replaceAll("/", "_")}',
+      () => github.repositories
+          .getRepository(RepositorySlug.full(repo))
+          .then((r) => r.toJson()..remove('owner')),
+    );
   }
 
-  Future<Map<String, dynamic>?> _readPub(String? package) async {
+  Future<Map<String, dynamic>?> _readPubPackage(String? package) async {
     if (package == null) return null;
-    return _pub.packageInfo(package).then((p) => p.toJson());
+    return _readCache(
+      'pub_$package',
+      () => pub.packageInfo(package).then((p) => p.toJson()
+        ..remove('latest')
+        ..remove('versions')),
+    );
+  }
+
+  Future<Map<String, dynamic>?> _readCache(
+    String key,
+    Future<Map<String, dynamic>> Function() toJson,
+  ) async {
+    final cached = await cache?.get(key);
+    if (cached != null) return cached;
+
+    final json = await toJson();
+    await cache?.put(key, json);
+    return json;
   }
 }

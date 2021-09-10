@@ -106,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.3"
+  clock:
+    dependency: transitive
+    description:
+      name: clock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   code_builder:
     dependency: transitive
     description:
@@ -141,6 +148,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   file:
     dependency: transitive
     description:
@@ -393,6 +407,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  stash:
+    dependency: transitive
+    description:
+      name: stash
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.2"
+  stash_file:
+    dependency: "direct main"
+    description:
+      name: stash_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.1"
   stream_channel:
     dependency: transitive
     description:
@@ -442,6 +470,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.4"
   watcher:
     dependency: transitive
     description:
@@ -464,4 +499,4 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0 <3.0.0"
+  dart: ">=2.13.0 <3.0.0"

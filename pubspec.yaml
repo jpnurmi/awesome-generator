@@ -10,6 +10,8 @@ dependencies:
   github: ^8.1.1
   liquid_engine: ^0.2.2
   pub_api_client: ^2.1.0
+  stash: ^3.2.2
+  stash_file: ^3.2.1
   yaml: ^3.1.0
 
 dev_dependencies:

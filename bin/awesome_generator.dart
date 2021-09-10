@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:awesome_generator/awesome_generator.dart';
+import 'package:github/github.dart';
+import 'package:pub_api_client/pub_api_client.dart';
 
 Future<void> main(List<String> args) async {
   final parser = ArgParser();
@@ -23,19 +25,39 @@ Future<void> main(List<String> args) async {
     defaultsTo: 'readme.tmpl',
     help: 'Path to readme.tmpl.',
   );
+  parser.addOption(
+    'cache',
+    valueHelp: 'path',
+    defaultsTo: Directory.systemTemp.path,
+    help: 'Path to cache.',
+  );
+  parser.addFlag(
+    'no-cache',
+    negatable: false,
+    defaultsTo: false,
+    help: 'Disable the cache.',
+  );
 
   final options = parser.parse(args);
 
-  final client = AwesomeClient(token: options['token']);
+  final github = GitHub(auth: Authentication.withToken(options['token']));
+
+  final client = AwesomeClient(
+    github: github,
+    pub: PubClient(),
+    cache: options['no-cache'] == true ? null : AwesomeCache(options['cache']),
+  );
+
   final entries = <AwesomeEntry>[];
   for (final file in options.rest) {
     entries.addAll(await client.load(file));
   }
-  client.close();
 
   final generator = AwesomeGenerator(
     template: options['template'],
     entries: entries,
   );
   await generator.generate(options['output']);
+
+  github.dispose();
 }
