@@ -11,12 +11,8 @@ _$_AwesomeEntry _$$_AwesomeEntryFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       url: json['url'] as String?,
       description: json['description'] as String?,
-      pub: json['pub'] == null
-          ? null
-          : PubPackage.fromJson(json['pub'] as Map<String, dynamic>),
-      github: json['github'] == null
-          ? null
-          : Repository.fromJson(json['github'] as Map<String, dynamic>),
+      pub: json['pub'] as Map<String, dynamic>?,
+      github: json['github'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$$_AwesomeEntryToJson(_$_AwesomeEntry instance) =>

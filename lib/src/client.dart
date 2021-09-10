@@ -41,13 +41,15 @@ class AwesomeClient {
     return entries;
   }
 
-  Future<Repository?> _readGitHub(String? repo) async {
+  Future<Map<String, dynamic>?> _readGitHub(String? repo) async {
     if (repo == null) return null;
-    return _github.repositories.getRepository(RepositorySlug.full(repo));
+    return _github.repositories
+        .getRepository(RepositorySlug.full(repo))
+        .then((r) => r.toJson());
   }
 
-  Future<PubPackage?> _readPub(String? package) async {
+  Future<Map<String, dynamic>?> _readPub(String? package) async {
     if (package == null) return null;
-    return _pub.packageInfo(package);
+    return _pub.packageInfo(package).then((p) => p.toJson());
   }
 }

@@ -25,8 +25,8 @@ class _$AwesomeEntryTearOff {
       {required String name,
       String? url,
       String? description,
-      PubPackage? pub,
-      Repository? github}) {
+      Map<String, dynamic>? pub,
+      Map<String, dynamic>? github}) {
     return _AwesomeEntry(
       name: name,
       url: url,
@@ -49,8 +49,8 @@ mixin _$AwesomeEntry {
   String get name => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  PubPackage? get pub => throw _privateConstructorUsedError;
-  Repository? get github => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get pub => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get github => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,10 +67,8 @@ abstract class $AwesomeEntryCopyWith<$Res> {
       {String name,
       String? url,
       String? description,
-      PubPackage? pub,
-      Repository? github});
-
-  $PubPackageCopyWith<$Res>? get pub;
+      Map<String, dynamic>? pub,
+      Map<String, dynamic>? github});
 }
 
 /// @nodoc
@@ -105,23 +103,12 @@ class _$AwesomeEntryCopyWithImpl<$Res> implements $AwesomeEntryCopyWith<$Res> {
       pub: pub == freezed
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
-              as PubPackage?,
+              as Map<String, dynamic>?,
       github: github == freezed
           ? _value.github
           : github // ignore: cast_nullable_to_non_nullable
-              as Repository?,
+              as Map<String, dynamic>?,
     ));
-  }
-
-  @override
-  $PubPackageCopyWith<$Res>? get pub {
-    if (_value.pub == null) {
-      return null;
-    }
-
-    return $PubPackageCopyWith<$Res>(_value.pub!, (value) {
-      return _then(_value.copyWith(pub: value));
-    });
   }
 }
 
@@ -136,11 +123,8 @@ abstract class _$AwesomeEntryCopyWith<$Res>
       {String name,
       String? url,
       String? description,
-      PubPackage? pub,
-      Repository? github});
-
-  @override
-  $PubPackageCopyWith<$Res>? get pub;
+      Map<String, dynamic>? pub,
+      Map<String, dynamic>? github});
 }
 
 /// @nodoc
@@ -177,11 +161,11 @@ class __$AwesomeEntryCopyWithImpl<$Res> extends _$AwesomeEntryCopyWithImpl<$Res>
       pub: pub == freezed
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
-              as PubPackage?,
+              as Map<String, dynamic>?,
       github: github == freezed
           ? _value.github
           : github // ignore: cast_nullable_to_non_nullable
-              as Repository?,
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -202,9 +186,9 @@ class _$_AwesomeEntry implements _AwesomeEntry {
   @override
   final String? description;
   @override
-  final PubPackage? pub;
+  final Map<String, dynamic>? pub;
   @override
-  final Repository? github;
+  final Map<String, dynamic>? github;
 
   @override
   String toString() {
@@ -253,8 +237,8 @@ abstract class _AwesomeEntry implements AwesomeEntry {
       {required String name,
       String? url,
       String? description,
-      PubPackage? pub,
-      Repository? github}) = _$_AwesomeEntry;
+      Map<String, dynamic>? pub,
+      Map<String, dynamic>? github}) = _$_AwesomeEntry;
 
   factory _AwesomeEntry.fromJson(Map<String, dynamic> json) =
       _$_AwesomeEntry.fromJson;
@@ -266,9 +250,9 @@ abstract class _AwesomeEntry implements AwesomeEntry {
   @override
   String? get description => throw _privateConstructorUsedError;
   @override
-  PubPackage? get pub => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get pub => throw _privateConstructorUsedError;
   @override
-  Repository? get github => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get github => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AwesomeEntryCopyWith<_AwesomeEntry> get copyWith =>
