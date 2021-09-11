@@ -22,8 +22,8 @@ Future<void> main(List<String> args) async {
   parser.addOption(
     'template',
     valueHelp: 'path',
-    defaultsTo: 'readme.tmpl',
-    help: 'Path to readme.tmpl.',
+    defaultsTo: 'awesome.tmpl',
+    help: 'Path to awesome.tmpl.',
   );
   parser.addOption(
     'cache',
