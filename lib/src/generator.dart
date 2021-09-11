@@ -16,10 +16,12 @@ class AwesomeGenerator {
 
   Future<void> generate(String? path) async {
     final context = Context.create();
-    context.variables['entries'] = entries.map((p) => p.toJson());
+    context.variables['entries'] = entries.map((p) => p.toJson()).toList();
     for (final category in categories) {
-      context.variables[category] =
-          entries.where((e) => e.category == category).map((p) => p.toJson());
+      context.variables[category] = entries
+          .where((e) => e.category == category)
+          .map((p) => p.toJson())
+          .toList();
     }
 
     final content = File(template).readAsStringSync();
