@@ -8,11 +8,16 @@ import 'package:pub_api_client/pub_api_client.dart';
 
 Future<void> main(List<String> args) async {
   final parser = ArgParser();
+  parser.addFlag(
+    'help',
+    abbr: 'h',
+    negatable: false,
+  );
   parser.addOption(
     'token',
     valueHelp: 'token',
     defaultsTo: Platform.environment['GITHUB_TOKEN'],
-    help: 'GitHub token (defaults to the GITHUB_TOKEN environment variable)',
+    help: 'GitHub token (defaults to GITHUB_TOKEN)',
   );
   parser.addOption(
     'output',
@@ -40,6 +45,13 @@ Future<void> main(List<String> args) async {
   );
 
   final options = parser.parse(args);
+
+  if (options['help'] == true) {
+    final exe = p.basename(Platform.resolvedExecutable);
+    print('Usage: $exe <awesome.yaml(s)>\n');
+    print(parser.usage);
+    return;
+  }
 
   final github = GitHub(auth: Authentication.withToken(options['token']));
 
