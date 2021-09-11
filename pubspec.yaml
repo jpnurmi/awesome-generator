@@ -12,6 +12,7 @@ dependencies:
     git:
       url: https://github.com/jpnurmi/liquid_dart.git
       ref: firstof
+  path: ^1.8.0
   pub_api_client: ^2.1.0
   stash: ^3.2.2
   stash_file: ^3.2.1

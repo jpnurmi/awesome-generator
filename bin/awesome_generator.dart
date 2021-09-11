@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:awesome_generator/awesome_generator.dart';
 import 'package:github/github.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_api_client/pub_api_client.dart';
 
 Future<void> main(List<String> args) async {
@@ -28,7 +29,7 @@ Future<void> main(List<String> args) async {
   parser.addOption(
     'cache',
     valueHelp: 'path',
-    defaultsTo: Directory.systemTemp.path,
+    defaultsTo: '${Directory.systemTemp.path}/awesome',
     help: 'Path to cache.',
   );
   parser.addFlag(
