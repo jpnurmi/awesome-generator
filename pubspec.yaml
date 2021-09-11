@@ -8,7 +8,10 @@ dependencies:
   args: ^2.2.0
   freezed_annotation: ^0.14.3
   github: ^8.1.1
-  liquid_engine: ^0.2.2
+  liquid_engine: # ^0.2.2
+    git:
+      url: https://github.com/jpnurmi/liquid_dart.git
+      ref: firstof
   pub_api_client: ^2.1.0
   stash: ^3.2.2
   stash_file: ^3.2.1

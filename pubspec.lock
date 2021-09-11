@@ -263,9 +263,11 @@ packages:
   liquid_engine:
     dependency: "direct main"
     description:
-      name: liquid_engine
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: firstof
+      resolved-ref: d223126875452626372efbfa0991d83a9adf589b
+      url: "https://github.com/jpnurmi/liquid_dart.git"
+    source: git
     version: "0.2.2"
   logging:
     dependency: transitive
@@ -408,7 +410,7 @@ packages:
     source: hosted
     version: "1.10.0"
   stash:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: stash
       url: "https://pub.dartlang.org"
