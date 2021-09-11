@@ -1,7 +1,7 @@
 # Awesome Generator 💙
 
-WIP
+Powers [awesome-flutter-linux](https://github.com/jpnurmi/awesome-flutter-linux).
 
 ## Credits
 
-This project is based on [awesome-flutter-desktop](https://github.com/leanflutter/awesome-flutter-desktop) by [@leanflutter](https://github.com/leanflutter).
+Inspired by [awesome-flutter-desktop](https://github.com/leanflutter/awesome-flutter-desktop) by [@leanflutter](https://github.com/leanflutter).
