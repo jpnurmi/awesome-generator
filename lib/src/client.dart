@@ -56,9 +56,12 @@ class AwesomeClient {
     if (package == null) return null;
     return _readCache(
       'pub_$package',
-      () => pub.packageInfo(package).then((p) => p.toJson()
-        ..remove('latest')
-        ..remove('versions')),
+      () => pub.packageInfo(package).then((p) => {
+            'name': p.name,
+            'version': p.version,
+            'description': p.description,
+            'url': 'https://pub.dev/packages/$package'
+          }),
     );
   }
 
