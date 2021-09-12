@@ -1,6 +1,6 @@
 # Awesome Generator 💙
 
-An awesome generator for curated awesome lists.
+An awesome generator for awesome lists.
 
 ## Used by
 
