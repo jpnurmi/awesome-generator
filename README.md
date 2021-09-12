@@ -9,4 +9,4 @@ An awesome generator for awesome lists.
 ## Credits
 
 Inspired by [awesome-flutter-desktop](https://github.com/leanflutter/awesome-flutter-desktop)
-and powered by the [liquid](https://pub.dev/packages/liquid_engine) template engine.
+and powered by the [liquid template engine](https://pub.dev/packages/liquid_engine).
