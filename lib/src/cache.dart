@@ -3,7 +3,12 @@ import 'package:stash/stash_api.dart';
 import 'package:stash_file/stash_file.dart';
 
 class AwesomeCache {
-  AwesomeCache(this.path)
+  static AwesomeCache? fromPath(String? path) {
+    if (path == null) return null;
+    return AwesomeCache._(path);
+  }
+
+  AwesomeCache._(this.path)
       : cache = newLocalFileCache(
             cacheName: p.basename(path), path: p.dirname(path));
 

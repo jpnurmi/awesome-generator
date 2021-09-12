@@ -57,7 +57,7 @@ Future<void> main(List<String> args) async {
 
   final client = AwesomeClient(
     sources: sources,
-    cache: options['no-cache'] == true ? null : AwesomeCache(options['cache']),
+    cache: AwesomeCache.fromPath(options['cache']),
   );
 
   final entries = <Map<String, dynamic>>[];
