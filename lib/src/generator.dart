@@ -2,26 +2,22 @@ import 'dart:io';
 
 import 'package:liquid_engine/liquid_engine.dart';
 
-import 'entry.dart';
-
 class AwesomeGenerator {
   AwesomeGenerator({
     required this.template,
     required this.entries,
-  }) : categories = entries.map((entry) => entry.category).toSet();
+  }) : categories = entries.map((entry) => entry['category'] as String).toSet();
 
   final String template;
-  final List<AwesomeEntry> entries;
+  final List<Map<String, dynamic>> entries;
   final Set<String> categories;
 
   Future<void> generate(String? path) async {
     final context = Context.create();
-    context.variables['entries'] = entries.map((p) => p.toJson()).toList();
+    context.variables['entries'] = entries;
     for (final category in categories) {
-      context.variables[category] = entries
-          .where((e) => e.category == category)
-          .map((p) => p.toJson())
-          .toList();
+      context.variables[category] =
+          entries.where((e) => e['category'] == category).toList();
     }
 
     final content = File(template).readAsStringSync();

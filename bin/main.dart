@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:awesome_generator/awesome_generator.dart';
-import 'package:github/github.dart';
 import 'package:path/path.dart' as p;
-import 'package:pub_api_client/pub_api_client.dart';
+
+import 'sources/github.dart';
+import 'sources/pub.dart';
 
 Future<void> main(List<String> args) async {
   final parser = ArgParser();
@@ -12,12 +13,6 @@ Future<void> main(List<String> args) async {
     'help',
     abbr: 'h',
     negatable: false,
-  );
-  parser.addOption(
-    'token',
-    valueHelp: 'token',
-    defaultsTo: Platform.environment['GITHUB_TOKEN'],
-    help: 'GitHub token (defaults to GITHUB_TOKEN)',
   );
   parser.addOption(
     'output',
@@ -44,24 +39,30 @@ Future<void> main(List<String> args) async {
     help: 'Disable the cache.',
   );
 
+  final sources = [AwesomeGitHub(), AwesomePub()];
+  for (final source in sources) {
+    source.init(parser);
+  }
+
   final options = parser.parse(args);
 
-  if (options['help'] == true) {
+  if (options['help'] == true || options.rest.isEmpty) {
     final exe = p.basename(Platform.resolvedExecutable);
     print('Usage: $exe <awesome.yaml(s)>\n');
     print(parser.usage);
     return;
   }
 
-  final github = GitHub(auth: Authentication.withToken(options['token']));
+  for (final source in sources) {
+    source.parse(options);
+  }
 
   final client = AwesomeClient(
-    github: github,
-    pub: PubClient(),
+    sources: sources,
     cache: options['no-cache'] == true ? null : AwesomeCache(options['cache']),
   );
 
-  final entries = <AwesomeEntry>[];
+  final entries = <Map<String, dynamic>>[];
   for (final file in options.rest) {
     entries.addAll(await client.load(file));
   }
@@ -72,5 +73,7 @@ Future<void> main(List<String> args) async {
   );
   await generator.generate(options['output']);
 
-  github.dispose();
+  for (final source in sources) {
+    source.dispose();
+  }
 }
