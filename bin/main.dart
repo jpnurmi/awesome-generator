@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:awesome_generator/awesome_generator.dart';
-import 'package:path/path.dart' as p;
 
 import 'sources/github.dart';
 import 'sources/pub.dart';
@@ -47,8 +46,7 @@ Future<void> main(List<String> args) async {
   final options = parser.parse(args);
 
   if (options['help'] == true || options.rest.isEmpty) {
-    final exe = p.basename(Platform.resolvedExecutable);
-    print('Usage: $exe <awesome.yaml(s)>\n');
+    print('Usage: awesome-generator <awesome.yaml(s)>\n');
     print(parser.usage);
     return;
   }
